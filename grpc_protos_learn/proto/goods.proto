@@ -1,0 +1,9 @@
+syntax = "proto3";
+package goods;
+option go_package = ".;proto";
+import "base.proto";
+import "google/protobuf/empty.proto";
+service GoodsService {
+//  rpc Ping(base.Empty) returns (base.Pong);// ping接口
+  rpc Ping(google.protobuf.Empty) returns (base.Pong);// ping接口
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package user;
+option go_package = ".;proto";
+import "base.proto";
+service UserServeice {
+  rpc Introduce(UserInfo) returns (base.Result);
+}
+
+message UserInfo{
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+  base.Gender gender = 4;
+  map<string,string> hobby = 5;
+}

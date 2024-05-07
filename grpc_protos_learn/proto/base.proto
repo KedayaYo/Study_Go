@@ -1,0 +1,43 @@
+syntax = "proto3";
+package base;
+option go_package = ".;proto";
+import "google/protobuf/timestamp.proto";
+
+message Empty{}
+
+message Pong{
+  string id = 1;
+}
+
+enum Code{
+  OK = 0;
+  ERROR = 1;
+}
+
+enum Gender{
+  MALE = 0;
+  FEMALE = 1;
+}
+
+message Result{
+  string id = 1;
+  Code code = 2;
+  // 嵌套的方法1: 直接将message定义在一个message中  序号也不受影响  但是查看源码 调用的名称变为了type Result_Version struct {
+  // proto.Result_Version{}
+  // 这样只是声明了一个类型 无法赋值
+//  message Version{
+//    string id = 1;
+//    string version = 2;
+//  }
+  // 这样才能赋值
+  Version version = 3;
+  repeated string data = 4;
+  // 导入包"google.golang.org/protobuf/types/known/timestamppb" 之后可以直接使用google.protobuf.Timestamp
+  google.protobuf.Timestamp timestamps = 5;
+
+  message Version{
+    string id = 1;
+    string version = 2;
+  }
+}
+

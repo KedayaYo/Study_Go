@@ -1,0 +1,24 @@
+syntax = "proto3";
+package hello;
+option go_package = ".;proto";
+import "base.proto";// 导入公用结构体
+import "google/protobuf/empty.proto";// 导入内置的空结构体
+service HelloService{
+  rpc SayHello(HelloRequest) returns (HelloResponse);// hello接口
+  // 模拟微服务调用其他文件夹下的方法  此处不需要传参  就定义一个空的结构  占位   然后共有的方法 一般会放在base.proto文件中 通过import导入  然后根据package名.变量调用
+  // 也可以使用内置的空结构体  在client等文件调用的时候
+  // 也需要导入 "github.com/golang/protobuf/ptypes/empty" 	 pong, _ := client.Ping(context.Background(),&empty.Empty{})
+  //  rpc Ping(base.Empty) returns (base.Pong);// ping接口
+  rpc Ping(google.protobuf.Empty) returns (base.Pong);// ping接口
+}
+
+message HelloRequest{
+  string name = 1;// 1是编号不是值
+  int32 age = 2;
+  repeated string hobby = 3;// repeated表示切片
+}
+
+message HelloResponse{
+  string reply = 1;
+}
+
