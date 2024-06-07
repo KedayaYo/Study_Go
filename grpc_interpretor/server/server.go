@@ -20,7 +20,7 @@ func (s *Server) SayHello(ctx context.Context, req *proto.HelloRequest) (rsp *pr
 func main() {
 	// 1、生成参数，参数是一个UnaryServerInterceptor 是一个func 只需要实现这个func即可  handler原本的调用逻辑
 	// func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {}
-	helloUnaryInterce := func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+	helloUnaryIntercept := func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
 		fmt.Printf("服务端拦截到了一个请求%s\n", info.FullMethod)
 		start := time.Now()
 		// 执行初始的逻辑 handler(ctx, req)
@@ -29,7 +29,7 @@ func main() {
 		return res, err
 	}
 	// 2、grpc生成服务端拦截器配置：UnaryInterceptor (stream有对应的拦截器)
-	opt := grpc.UnaryInterceptor(helloUnaryInterce)
+	opt := grpc.UnaryInterceptor(helloUnaryIntercept)
 	// 3、实例化
 	g := grpc.NewServer(opt)
 	proto.RegisterHelloServiceServer(g, &Server{})
