@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -161,4 +162,10 @@ func main() {
 	// 去掉特殊字符 Trim只能去掉首尾的字符
 	trim := strings.Trim(username, "_")
 	fmt.Println(trim)
+
+	fmt.Println("================================")
+	sql := make([]string, 0, 5)
+	req := "100"
+	sql = append(sql, " AND create_time >= ?", req)
+	log.Printf("%v", sql)
 }

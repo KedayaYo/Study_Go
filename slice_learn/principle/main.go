@@ -18,4 +18,8 @@ func main() {
 	s2[0] = 100
 	fmt.Printf("s1: %v\n", s1)
 	fmt.Printf("s2: %v\n", s2)
+
+	sql := make([]string, 0, 5)
+	sql = append(sql, "create_time >= '123'")
+	fmt.Printf("sql: %v, cap:%d,len:%d\n", sql, cap(sql), len(sql))
 }
