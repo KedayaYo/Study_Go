@@ -165,7 +165,9 @@ func main() {
 
 	fmt.Println("================================")
 	sql := make([]string, 0, 5)
-	req := "100"
-	sql = append(sql, " AND create_time >= ?", req)
+	req := "kedaya"
+	sql = append(sql, " AND username LIKE %?%", req)
 	log.Printf("%v", sql)
+	sql = append(sql, " AND username LIKE %?%", req)
+
 }
